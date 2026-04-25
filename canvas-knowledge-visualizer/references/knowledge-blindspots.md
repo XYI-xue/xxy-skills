@@ -1,120 +1,214 @@
-# 知识盲区标注指南
+# Knowledge Blindspots Feature
 
-## 概述
+## What Are Knowledge Blindspots?
 
-当原始 markdown 文件中包含 `#?` 或 `#？` 标签时，这些内容代表用户之前的知识盲区，应该被特别标注。
+Knowledge blindspots (`#?` tags) represent content that the user **previously did not understand**. These are high-value learning points that should be highlighted in the canvas for easy review and reinforcement.
 
-## 为什么有价值
+## When to Use This Feature
 
-- ✨ **理解的转折点**：从"不懂"到"懂"的关键突破
-- 💎 **稀缺性**：从真实实践中提炼的疑问，不是照搬文档
-- 🎯 **共鸣点**：可能是他人也会遇到的困惑
+Use this enhancement when:
 
-## 实施步骤
+* The source markdown file contains content tagged with `#?`
 
-### 1. 识别 `#?` 标签
+* User wants to highlight their previous knowledge gaps
 
-在 Step 1 (Content Analysis) 阶段，搜索文件中的 `#?` 或 `#？` 标签，记录：
-- 标签所在的位置
-- 标签对应的问题/疑问
-- 相关的内容上下文
+* User wants to create a focused review path for learning
 
-### 2. 创建知识盲区节点
+* User explicitly requests "标注知识盲区" (mark knowledge blindspots)
 
-**条件**：仅当文件中存在 `#?` 标签时才执行此步骤
+## Implementation Steps
 
-**节点配置**：
+### Step 1: Identify Blindspot Content
+
+During content analysis, scan the source file for `#?` tags. Extract:
+
+* The specific content marked with `#?`
+
+* The context around it (sufficient for understanding)
+
+* The topic/category it belongs to
+
+### Step 2: Create Knowledge Blindspots Node
+
+**Node Configuration:**
+
+* **Type**: `text`
+* **ID**: `knowledge-blindspots`
+* **Position**: Below the "summary" node, centered
+* **Color**: Red (1) - highest priority
+* **Width**: 800-1000
+* **Height**: Dynamic based on content (minimum 400)
+
+**Content Format:**
+
+```markdown
+## 知识盲区
+
+### 标签说明
+`#?` 标记的内容代表之前完全不懂的知识点，是本次学习的重点。
+
+### 盲区列表
+
+#### [Topic 1]
+> Extracted content with #? tag
+>
+> Context/explanation as needed
+
+#### [Topic 2]
+> Extracted content with #? tag
+>
+> Context/explanation as needed
+
+#知识盲区 #学习重点
+```
+
+### Step 3: Create Connections
+
+**Connection Pattern:**
+
+The "knowledge-blindspots" node should connect to **all** topic nodes that contain blindspot content.
+
+**Edge Labels:**
+
+* Use concise labels like "盲区", "盲点", "知识空白", "重点"
+
+**Edge Direction:**
+
+* `toSide`: `top` (blindspots node at bottom)
+
+* `fromSide`: `bottom` (from topic nodes)
+
+**Example Edge:**
+
 ```json
 {
-  "id": "knowledge-blindspots",
-  "type": "text",
-  "text": "# 🤔 知识盲区\n\n**之前不懂的关键问题**\n\n这些内容曾经是我的知识盲区，通过实践和学习才理解透彻。\n\n## 包含的问题\n- [问题1]\n- [问题2]\n\n## 为什么有价值\n- ✨ 理解的转折点：从\"不懂\"到\"懂\"的关键突破\n- 💎 稀缺性：从真实实践中提炼的疑问，不是照搬文档\n- 🎯 共鸣点：可能是他人也会遇到的困惑\n\n---\n\n点击下方的连线查看具体问题和答案",
-  "x": -3040,
-  "y": -1280,
-  "width": 800,
-  "height": 600,
-  "color": "1"
+  "id": "topic-blindspots",
+  "fromNode": "topic-id",
+  "fromSide": "bottom",
+  "toNode": "knowledge-blindspots",
+  "toSide": "top",
+  "label": "盲区"
 }
 ```
 
-**注意事项**：
-- 位置：左侧显眼位置
-- 颜色：红色（color: "1"）- 最高优先级，与核心主题相同
-- 连线：用编号标签连接到所有包含 `#?` 的卡片
+### Step 4: Positioning Strategy
 
-### 3. 创建编号连线
+**Default Position:**
 
-从"知识盲区"节点连接到每个包含 `#?` 的卡片：
-
-```json
-{
-  "id": "edge-blindspot-1",
-  "fromNode": "knowledge-blindspots",
-  "fromSide": "right",
-  "toNode": "[包含#?的卡片ID]",
-  "toSide": "left",
-  "label": "① [问题摘要]"
-}
+```
+Knowledge Blindspots: x=400,  y=summary.y + 800
 ```
 
-**连线标签格式**：
-- 使用编号：①、②、③...
-- 添加问题摘要（2-6 字）
-- 示例：`① 渐进式披露如何实现？`
+**Adjustments:**
 
-## 颜色编码说明
+* If archive suggestions exist, place blindspots between summary and archive suggestions
 
-当使用知识盲区功能时，红色（color: "1"）有两种用途：
-- 核心主题节点
-- 知识盲区节点（最高优先级）
+* Maintain vertical alignment with center column
 
-## 检查清单
+* Ensure no overlapping with other nodes
 
-- [ ] 所有 `#?` 标签已被识别
-- [ ] 知识盲区节点已创建（如存在 `#?` 标签）
-- [ ] 所有 `#?` 内容已用编号连线索引
-- [ ] 连线标签清晰简练
+## Examples
 
-## 示例
+### Example 1: Single Blindspot Topic
 
-**原始文件内容**：
 ```markdown
-## 渐进式披露架构
+## 知识盲区
 
-#？ 如何实现？手动创建python代码实现还是可以直接在skill.md中使用自然语言实现？
+### 标签说明
+`#?` 标记的内容代表之前完全不懂的知识点，是本次学习的重点。
 
-这个功能的实现不需要你写复杂的代码去"控制"什么时候加载...
+### 盲区列表
+
+#### VPC（虚拟私有云）
+在公有云里给客户围个"小院子"。
+
+> **应用思考**：如何把这些枯燥的基础设施，通过 AI 的包装，变成客户一听就想买的"智能方案"？
+
+#知识盲区 #学习重点 #云计算
 ```
 
-**生成的知识盲区节点**：
+### Example 2: Multiple Blindspots
+
 ```markdown
-# 🤔 知识盲区
+## 知识盲区
 
-**之前不懂的关键问题**
+### 标签说明
+`#?` 标记的内容代表之前完全不懂的知识点，是本次学习的重点。
 
-这些内容曾经是我的知识盲区，通过实践和学习才理解透彻。
+### 盲区列表
 
-## 包含的问题
-- 渐进式披露架构如何实现？
+#### VPC（虚拟私有云）
+在公有云里给客户围个"小院子"。如何通过 AI 包装成智能方案。
 
-## 为什么有价值
-- ✨ 理解的转折点：从"不懂"到"懂"的关键突破
-- 💎 稀缺性：从真实实践中提炼的疑问，不是照搬文档
-- 🎯 共鸣点：可能是他人也会遇到的困惑
+#### Prompt Caching
+重复的背景部分只收 1/10 的钱，RAG 场景下的省钱神器。
+
+#### Gateway 路由机制
+OpenClaw 中负责意图识别与需求分发的核心组件。
+
+#知识盲区 #学习重点
+```
+
+## Best Practices
+
+### ✅ DO
+
+* Extract **concise** blindspot content (remove redundancy)
+
+* Maintain **context** for understanding
+
+* Use **consistent formatting** across blindspots
+
+* Connect to **all** relevant topic nodes
+
+* Place the node **visually prominently** (red color, centered)
+
+### ❌ DON'T
+
+* Don't copy entire paragraphs blindly
+
+* Don't create blindspots node when source has **no** `#?` tags
+
+* Don't overcomplicate edge labels
+
+* Don't position the node in a way that disrupts main flow
+
+## Integration with Core Workflow
+
+**Where to Insert:**
+
+After **Step 4: Optimization and Refinement** in the main SKILL.md workflow.
+
+**Checklist Addition:**
+
+```
+* [ ] If source contains #? tags:
+    * [ ] Create knowledge-blindspots node
+    * [ ] Extract blindspot content
+    * [ ] Create edges to relevant topics
+    * [ ] Position below summary node
+```
+
+## Visual Impact
+
+**Before:** Standard canvas with topic nodes and connections
+
+**After:** Enhanced canvas with a centralized "Knowledge Blindspots" node that:
+* Highlights learning points in red
+* Creates a focused review path
+* Shows the user's growth trajectory
+* Makes blindspots easily accessible for future reference
+
+## User Feedback Integration
+
+When user reviews the canvas, they may want to:
+* Add/remove blindspots
+* Adjust connections
+* Change the position
+* Modify the content format
+
+Be prepared to iterate based on their feedback.
 
 ---
 
-点击下方的连线查看具体问题和答案
-```
-
-**生成的连线**：
-```json
-{
-  "id": "edge-blindspot-1",
-  "fromNode": "knowledge-blindspots",
-  "fromSide": "right",
-  "toNode": "progressive-disclosure",
-  "toSide": "left",
-  "label": "① 渐进式披露如何实现？"
-}
-```
+**Note:** This feature is **optional**. Only use it when the source file contains `#?` tags or the user explicitly requests it. The core canvas generation workflow remains unchanged.
