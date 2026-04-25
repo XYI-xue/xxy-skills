@@ -228,3 +228,14 @@ A successful canvas should:
 - Connection relationships
 - Content organization
 - Visual hierarchy
+
+## Optional Enhancements
+
+### Knowledge Blindspots Highlighting
+
+If the source markdown file contains `#?` or `#？` tags, refer to `references/knowledge-blindspots.md` for detailed instructions on how to highlight these knowledge blindspots in the canvas.
+
+**Key points:**
+- Create a centralized "知识盲区" node (red color)
+- Connect to all cards containing `#?` with numbered labels
+- Position prominently on the left side
