@@ -1,0 +1,23 @@
+{
+  "skill_name": "canvas-knowledge-visualizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "请为 01-Inbox/2026-04/2026-04-24.md 创建一个 Canvas 可视化，帮助我整理这些关于 OpenClaw 的杂乱内容。",
+      "expected_output": "生成一个有效的 .canvas 文件，包含原始文件节点、核心主题节点、按三列分布的话题节点，以及清晰的连线关系。Canvas 应该能正常打开，布局清晰，连线逻辑合理。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我想把 01-Inbox/2026-04/2026-04-22.md 的内容可视化成 Canvas，这样能更好地理解我的 AI PM 入职思考。",
+      "expected_output": "生成一个有效的 .canvas 文件，核心主题为 AI PM 入职前的思考，内容按类型分列，垂直流向清晰，跨列关联丰富。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "帮我整理一下今天在 01-Inbox/2026-04/2026-04-25.md 里记的内容，创建个 Canvas 看看这些内容之间的关系。",
+      "expected_output": "分析 md 文件内容，识别核心主题和主要话题，生成结构化的 Canvas 可视化。",
+      "files": []
+    }
+  ]
+}
