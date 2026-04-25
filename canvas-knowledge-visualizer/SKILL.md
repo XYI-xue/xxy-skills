@@ -16,7 +16,6 @@ Use this skill when:
 - User wants to see relationships between different topics
 - User has daily notes that feel disorganized or redundant
 - User wants to create a knowledge map from their notes
-- User has `#?` tags in their notes that should be highlighted as knowledge blindspots
 
 ## Core Workflow
 
@@ -26,7 +25,6 @@ Use this skill when:
 2. **Identify core theme** - Find the central topic or main subject
 3. **Extract major topics** - Break down content into 5-10 key topics
 4. **Identify relationships** - Note how topics connect to each other
-5. **Find knowledge blindspots** - Search for `#?` tags in the original file
 
 **What to look for:**
 - Repeated content or themes
@@ -34,7 +32,6 @@ Use this skill when:
 - Natural groupings (e.g., technical vs. conceptual)
 - Cause-effect relationships
 - Hierarchical structures
-- **`#?` tags** - Mark questions/uncertainties (these indicate high-value content)
 
 ### Step 2: Structure Design
 
@@ -79,40 +76,14 @@ Right column:   x=2000
    - Contains: Main topic, keywords, content tags, status
    - Color: Red (1)
 
-3. **Knowledge blindspots node** (type: text) - **IF #? tags exist**
-   - Position: Left side, prominent location (e.g., x=-3040, y=-1280)
-   - Color: Red (1) - highest priority
-   - Content format:
-     ```markdown
-     # 🤔 知识盲区
-
-     **之前不懂的关键问题**
-
-     这些内容曾经是我的知识盲区，通过实践和学习才理解透彻。
-
-     ## 包含的问题
-     - [问题1]
-     - [问题2]
-
-     ## 为什么有价值
-     - ✨ 理解的转折点：从"不懂"到"懂"的关键突破
-     - 💎 稀缺性：从真实实践中提炼的疑问，不是照搬文档
-     - 🎯 共鸣点：可能是他人也会遇到的困惑
-
-     ---
-
-     点击下方的连线查看具体问题和答案
-     ```
-   - Connect to all cards containing `#?` tags with numbered labels: "① [question]", "② [question]"
-
-4. **Topic nodes** (type: text)
+3. **Topic nodes** (type: text)
    - Distribute across three columns based on content type
    - Card size: width 800-1100, height 500-900
    - Extract key content for each topic
    - Use appropriate colors
 
 **Color Coding:**
-- **Red (1)**: Core theme, Knowledge blindspots (highest priority)
+- **Red (1)**: Core theme
 - **Blue (2)**: Technical architecture
 - **Purple (3)**: Methodology/applications
 - **Orange (4)**: Analysis/comparisons
@@ -134,11 +105,6 @@ Right column:   x=2000
 - **Don't limit the number** - allow rich interconnections
 - Ensure connections have clear logical justification
 
-**Knowledge blindspots connections (IF applicable):**
-- From "知识盲区" node to each card containing `#?` tags
-- Use numbered labels: "① [question]", "② [question]", etc.
-- Example: "① 渐进式披露如何实现？"
-
 **Edge Format:**
 ```json
 {
@@ -151,13 +117,6 @@ Right column:   x=2000
 }
 ```
 
-**Label Guidelines:**
-- Keep labels **highly concise**: 2-4 characters/words
-- Use clear, semantic relationships
-- Avoid redundant modifiers
-- Maintain consistent style across all edges
-- Examples: "原始内容", "核心内容", "理论基础", "实现方式", "应用实践"
-
 ### Step 4: Optimization and Refinement
 
 **Checklist:**
@@ -169,9 +128,6 @@ Right column:   x=2000
 - [ ] Edge labels describe relationships clearly
 - [ ] No vertical line overlaps (same x coordinate conflicts)
 - [ ] Logical flow makes sense
-- [ ] **Knowledge blindspots node created** (if `#?` tags exist in source file)
-- [ ] **All `#?` content indexed** with numbered connections
-- [ ] **Edge labels are highly concise** (2-4 characters/words)
 
 **Common Adjustments:**
 - Adjust card positions if lines cross awkwardly
@@ -179,8 +135,6 @@ Right column:   x=2000
 - Merge redundant content
 - Add missing connections users might expect
 - Simplify overly complex edge layouts
-- Add "知识盲区" node if `#?` tags were missed in initial pass
-- Ensure edge labels are concise (2-4 characters/words)
 
 ## Output Format
 
@@ -244,13 +198,6 @@ Right column:   x=2000
 - Avoid arbitrary connections
 - Respect the content's inherent structure
 
-**6. Highlight Value (Knowledge Blindspots)**
-- Identify and highlight `#?` tags as high-value content
-- Create a centralized "知识盲区" node to index these points
-- Use red color (highest priority) for visibility
-- Connect with numbered labels for easy navigation
-- Explain WHY these are valuable (learning breakthroughs)
-
 ## Success Criteria
 
 A successful canvas should:
@@ -261,9 +208,6 @@ A successful canvas should:
 - ✅ Help users quickly understand content structure
 - ✅ Reveal relationships between topics
 - ✅ Be visually balanced and readable
-- ✅ **Highlight knowledge blindspots** (if `#?` tags exist)
-- ✅ **Use highly concise edge labels** (2-4 characters/words)
-- ✅ **Maintain consistent visual style**
 
 ## User Interaction Pattern
 
